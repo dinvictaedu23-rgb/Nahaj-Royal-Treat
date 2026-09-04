@@ -73,27 +73,35 @@ alter table expenses  enable row level security;
 alter table settings  enable row level security;
 
 -- Products: everyone can browse the catalogue; only logged-in admin/staff can change it
+drop policy if exists "products_public_read" on products;
 create policy "products_public_read"   on products for select using (true);
+drop policy if exists "products_admin_write" on products;
 create policy "products_admin_write"   on products for all
   using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
 
 -- Orders: only admin/staff can list all orders (customers use the get_orders_by_phone
 -- function below instead, so a stranger with the public anon key can't browse everyone's
 -- name/phone/address). Creating an order goes through place_order(), not a direct insert.
+drop policy if exists "orders_admin_read" on orders;
 create policy "orders_admin_read"  on orders for select using (auth.role() = 'authenticated');
+drop policy if exists "orders_admin_write" on orders;
 create policy "orders_admin_write" on orders for update
   using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
 
 -- Customers: admin/staff only — contains phone/email/spend history
+drop policy if exists "customers_admin_read" on customers;
 create policy "customers_admin_read" on customers for select using (auth.role() = 'authenticated');
 
 -- Expenses: admin/staff only — internal financial data
+drop policy if exists "expenses_admin_all" on expenses;
 create policy "expenses_admin_all" on expenses for all
   using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
 
 -- Settings: publicly readable (storefront needs bank details / Flutterwave key at checkout),
 -- only admin/staff can change them
+drop policy if exists "settings_public_read" on settings;
 create policy "settings_public_read" on settings for select using (true);
+drop policy if exists "settings_admin_write" on settings;
 create policy "settings_admin_write" on settings for update
   using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
 
