@@ -512,7 +512,7 @@ function Footer(){
         <p style="opacity:.75;line-height:1.7;max-width:280px;">Premium cakes, small chops, milk candies and crochets — crafted with love, delivered with excellence.</p>
       </div>
       <div><h5>Quick Links</h5><a onclick="setView('home')">Home</a><a onclick="setView('shop')">Shop</a><a onclick="setView('business')">NRT Smart POS</a></div>
-      <div><h5>Categories</h5><a onclick="setView('shop',{shopCategory:'Cakes'})">Cakes</a><a onclick="setView('shop',{shopCategory:'Small Chops'})">Small Chops</a><a onclick="setView('shop',{shopCategory:'Milk Candies'})">Milk Candies</a><a onclick="setView('shop',{shopCategory:'Crochets'})">Crochets</a></div>
+      <div><h5>Categories</h5><a onclick="setView('shop',{shopCategory:'Cakes'})">Cakes</a><a onclick="setView('shop',{shopCategory:'Small Chops'})">Small Chops</a><a onclick="setView('shop',{shopCategory:'Snacks'})">Snacks</a><a onclick="setView('shop',{shopCategory:'Milk Candies'})">Milk Candies</a><a onclick="setView('shop',{shopCategory:'Crochets'})">Crochets</a></div>
       <div><h5>Connect With Us</h5><a href="https://wa.me/2348142658586" target="_blank">+234 814 265 8586</a><a>hello@nahajroyaltreat.com</a><a>Abuja, Nigeria</a></div>
     </div>
     <div class="foot-bottom">© 2026 Nahaj Royal Treat. All rights reserved. · Powered by NRT Smart POS</div>
@@ -527,6 +527,7 @@ function Home(){
   const cats = [
     {name:'Cakes', emoji:'🎂', img:catImg('Cakes'), desc:'Beautifully baked for every celebration.'},
     {name:'Small Chops', emoji:'🥟', img:catImg('Small Chops'), desc:'Tasty, crispy and perfect for any occasion.'},
+    {name:'Snacks', emoji:'🍪', img:catImg('Snacks'), desc:'Buns, chin-chin, peanuts and more crunchy favourites.'},
     {name:'Milk Candies', emoji:'🍬', img:catImg('Milk Candies'), desc:'Creamy, rich and irresistibly delightful.'},
     {name:'Crochets', emoji:'🧶', img:catImg('Crochets'), desc:'Handmade with care, crafted with love.'},
   ];
@@ -658,7 +659,7 @@ function marketingDashboardPreview(){
 
 /* ===================== RENDER: SHOP ===================== */
 function Shop(){
-  const cats = ['all','Cakes','Small Chops','Milk Candies','Crochets'];
+  const cats = ['all','Cakes','Small Chops','Snacks','Milk Candies','Crochets'];
   const list = DB.products.filter(p=> S.shopCategory==='all' || p.category===S.shopCategory);
   return `
   <div class="sec">
@@ -1214,7 +1215,7 @@ function openProductForm(id){
     <h4 style="margin-top:0;color:var(--maroon-deep);">${p?'Edit Product':'Add New Product'}</h4>
     <label>Name</label><input id="pfName" value="${p?p.name:''}">
     <label>Category</label>
-    <select id="pfCat">${['Cakes','Small Chops','Milk Candies','Crochets'].map(c=>`<option ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}</select>
+    <select id="pfCat">${['Cakes','Small Chops','Snacks','Milk Candies','Crochets'].map(c=>`<option ${p&&p.category===c?'selected':''}>${c}</option>`).join('')}</select>
     <label>Price (₦)</label><input id="pfPrice" type="number" value="${p?p.price:''}">
     <label>Stock Quantity</label><input id="pfStock" type="number" value="${p?p.stock:''}">
     <label>Product Photo</label>
